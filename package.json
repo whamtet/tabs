@@ -10,6 +10,6 @@
     "tailwind:watch": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
     "tailwind": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
     "shadow:watch": "shadow-cljs watch frontend",
-    "shadow": "shadow-cljs build frontend"
+    "shadow": "shadow-cljs release frontend"
   }
 }
