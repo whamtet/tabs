@@ -4,6 +4,7 @@
   (:require-macros
     [acme.render :refer [defrender]]))
 
-(defrender selector [tabs]
+(defrender selector [tabs current-tab]
   (for [tab tabs]
-    [:option {:value tab} tab]))
+    [:option {:value tab
+              :selected (= tab current-tab)} tab]))

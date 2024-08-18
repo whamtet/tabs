@@ -7,3 +7,14 @@
 
 (defn tabs []
   (keys @tab-storage))
+
+(defn add-tab [tab]
+  (reset! current-tab tab)
+  (swap! tab-storage assoc tab [nil nil]))
+
+(defn set-current-tab [tab]
+  (reset! current-tab tab))
+
+(defn delete-tab []
+  (swap! tab-storage dissoc @current-tab)
+  (reset! current-tab (first (tabs))))
