@@ -3,7 +3,7 @@
     [alandipert.storage-atom :refer [local-storage]]))
 
 (def tab-storage (local-storage (atom {}) :tab-storage))
-(def current-tab (local-storage (atom nil) :current-tab))
+(def current-tab (atom (first (keys @tab-storage))))
 
 (defn tabs []
   (keys @tab-storage))
@@ -22,4 +22,5 @@
   (reset! current-tab (first (tabs))))
 
 (defn assoc-col [col content]
-  (swap! tab-storage assoc-in [@current-tab col] content))
+  (when @current-tab
+    (swap! tab-storage assoc-in [@current-tab col] content)))

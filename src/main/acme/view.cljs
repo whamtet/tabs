@@ -1,6 +1,7 @@
 (ns acme.view
   (:require
-    acme.render)
+    acme.render
+    [acme.util :as util])
   (:require-macros
     [acme.render :refer [defrender]]))
 
@@ -10,10 +11,10 @@
               :selected (= tab current-tab)} tab]))
 
 (defrender col-container [[col0 col1]]
-  (list
-   [:div {:class "w-1/2"}
-    (for [line col0]
-      [:div line])]
-   [:div {:class "w-1/2"}
-    (for [line col1]
-      [:div line])]))
+  (util/map-all
+   (fn [l1 l2]
+     [:div {:class "flex mt-2 hover:bg-sky-200"}
+      [:div {:class "w-1/2"} l1]
+      [:div {:class "w-1/2"} l2]])
+   (some-> col0 (.split "\n"))
+   (some-> col1 (.split "\n"))))

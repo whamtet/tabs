@@ -18,9 +18,7 @@
   (.then
     (js/navigator.clipboard.readText)
     (fn [s]
-      (state/assoc-col
-       col
-       (some-> s .trim not-empty (.split "\n")))
+      (state/assoc-col col (.trim s))
       (view/col-container (state/tab-content)))))
 
 (defn ^:export swap-tab [tab]
