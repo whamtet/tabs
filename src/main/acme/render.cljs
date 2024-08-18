@@ -1,4 +1,4 @@
-(ns acme.frontend.render
+(ns acme.render
   (:require-macros [hiccups.core :as hiccups :refer [html]])
   (:require [hiccups.runtime :as hiccupsrt]))
 
