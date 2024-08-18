@@ -5,7 +5,8 @@
   "src/test"]
 
  :dependencies
- []
+ [[alandipert/storage-atom "2.0.1"]
+  [hiccups "0.3.0"]]
 
  :dev-http {8080 "public"}
  :builds

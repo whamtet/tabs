@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "shadow-cljs": "2.28.12"
+    "shadow-cljs": "2.28.12",
+    "tailwindcss": "^3.4.10"
+  },
+  "scripts": {
+    "tailwind:watch": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
+    "tailwind": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
+    "shadow:watch": "shadow-cljs watch frontend",
+    "shadow": "shadow-cljs build frontend"
   }
 }
