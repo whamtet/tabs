@@ -5,4 +5,5 @@
     [acme.state :as state]))
 
 (defn init []
-  (view/selector (state/tabs) @state/current-tab))
+  (view/selector (state/tabs) @state/current-tab)
+  (view/col-container (state/tab-content)))

@@ -7,6 +7,8 @@
 
 (defn tabs []
   (keys @tab-storage))
+(defn tab-content []
+  (@tab-storage @current-tab))
 
 (defn add-tab [tab]
   (reset! current-tab tab)
@@ -18,3 +20,6 @@
 (defn delete-tab []
   (swap! tab-storage dissoc @current-tab)
   (reset! current-tab (first (tabs))))
+
+(defn assoc-col [col content]
+  (swap! tab-storage assoc-in [@current-tab col] content))
