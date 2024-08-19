@@ -24,3 +24,7 @@
 (defn ^:export swap-tab [tab]
   (state/set-current-tab tab)
   (view/col-container (state/tab-content)))
+
+(defn ^:export rename []
+  (some-> "Rename:" js/prompt .trim not-empty state/rename)
+  (view/selector (state/tabs) @state/current-tab))

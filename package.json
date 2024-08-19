@@ -7,9 +7,8 @@
     "tailwindcss": "^3.4.10"
   },
   "scripts": {
-    "tailwind:watch": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
-    "tailwind": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
-    "shadow:watch": "shadow-cljs watch frontend",
-    "shadow": "shadow-cljs release frontend"
+    "tailwind": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
+    "shadow": "shadow-cljs watch frontend",
+    "release": "tailwindcss -i ./src/input.css -o ./public/output.css -m && shadow-cljs release frontend"
   }
 }
