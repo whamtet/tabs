@@ -12,7 +12,7 @@
 
 (defn add-tab [tab]
   (reset! current-tab tab)
-  (swap! tab-storage assoc tab [nil nil]))
+  (swap! tab-storage assoc tab [nil nil nil]))
 
 (defn- rename* [m k1 k2]
   (-> m
