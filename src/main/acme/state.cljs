@@ -1,6 +1,7 @@
 (ns acme.state
   (:require
-    [alandipert.storage-atom :refer [local-storage]]))
+    [alandipert.storage-atom :refer [local-storage]]
+    [clojure.string :as string]))
 
 (def tab-storage (local-storage (atom {}) :tab-storage))
 (def current-tab (atom (first (keys @tab-storage))))
@@ -32,3 +33,18 @@
 (defn assoc-col [col content]
   (when @current-tab
     (swap! tab-storage assoc-in [@current-tab col] content)))
+
+(defn assoc-interleaved [size content]
+  (when (and @current-tab (not-empty content))
+        (let [s (cond-> content
+                        (.startsWith content "'") (.replaceAll "'" "\"")
+                        (or (.startsWith content "'") (.startsWith content "\"")) js/JSON.parse)
+              cols (->> (.split s "\n")
+                        (filter not-empty)
+                        (iterate rest)
+                        (take size)
+                        (map #(->> % (take-nth size) (string/join "\n"))))]
+          (swap! tab-storage assoc @current-tab
+                 (if (= 2 size)
+                   [(first cols) nil (second cols)]
+                   (vec cols))))))
