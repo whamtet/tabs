@@ -34,11 +34,14 @@
   (when @current-tab
     (swap! tab-storage assoc-in [@current-tab col] content)))
 
+(def replacements {"'" ""
+                   "\"" ""
+                   "`" ""
+                   "\\n" "\n"})
+
 (defn assoc-interleaved [size content]
   (when (and @current-tab (not-empty content))
-        (let [s (cond-> content
-                        (.startsWith content "'") (.replaceAll "'" "\"")
-                        (or (.startsWith content "'") (.startsWith content "\"")) js/JSON.parse)
+        (let [s (reduce-kv #(.replaceAll %1 %2 %3) content replacements)
               cols (->> (.split s "\n")
                         (filter not-empty)
                         (iterate rest)
