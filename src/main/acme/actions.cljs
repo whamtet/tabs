@@ -39,3 +39,6 @@
 (defn ^:export copy [col]
   (when-let [s (get (state/tab-content) col)]
     (js/navigator.clipboard.writeText s)))
+
+(defn ^:export copy-song-name []
+  (js/navigator.clipboard.writeText @state/current-tab))
