@@ -6,7 +6,7 @@
     [acme.render :refer [defrender]]))
 
 (defrender selector [tabs current-tab]
-  (for [tab tabs]
+  (for [tab (sort tabs)]
     [:option {:value tab
               :selected (= tab current-tab)} tab]))
 
