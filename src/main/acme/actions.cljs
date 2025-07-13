@@ -1,5 +1,6 @@
 (ns acme.actions
   (:require
+    [cljs.reader :refer [read-string]]
     [acme.state :as state]
     [acme.view :as view]))
 
@@ -42,3 +43,23 @@
 
 (defn ^:export copy-song-name []
   (js/navigator.clipboard.writeText @state/current-tab))
+
+(defn ^:export download []
+  (let [link (js/document.createElement "a")]
+    (set! (.-download link) "ttabs.edn")
+    (->> @state/tab-storage
+         pr-str
+         (str "data:text/plain;charset=utf-8,")
+         (set! (.-href link)))
+    (js/document.body.appendChild link)
+    (.click link)
+    (js/document.body.removeChild link)))
+
+(defn ^:export upload [file]
+  (when file
+        (let [reader (js/FileReader.)]
+          (set! (.-onload reader)
+            (fn [e]
+              (-> e .-target .-result read-string state/upload)
+              (js/location.reload)))
+          (.readAsText reader file))))

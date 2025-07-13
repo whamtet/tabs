@@ -6,6 +6,11 @@
 (def tab-storage (local-storage (atom {}) :tab-storage))
 (def current-tab (atom (first (keys @tab-storage))))
 
+(defn upload [x]
+  (reset! tab-storage x))
+
+(defn ^:export t [] (prn @tab-storage))
+
 (defn tabs []
   (keys @tab-storage))
 (defn tab-content []
